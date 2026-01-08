@@ -1,4 +1,5 @@
 import { Bell, Search, ChevronDown } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -12,6 +13,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { useStore } from '@/store/useStore';
+import { useAuthStore } from '@/store/useAuthStore';
 import { cn } from '@/lib/utils';
 
 interface NavbarProps {
@@ -19,7 +21,9 @@ interface NavbarProps {
 }
 
 export function Navbar({ title = 'Dashboard' }: NavbarProps) {
+  const navigate = useNavigate();
   const { sidebarCollapsed } = useStore();
+  const { admin, logout } = useAuthStore();
 
   return (
     <header
@@ -83,11 +87,13 @@ export function Navbar({ title = 'Dashboard' }: NavbarProps) {
             <Button variant="ghost" className="flex items-center gap-3 px-2 hover:bg-muted">
               <Avatar className="w-8 h-8 border-2 border-primary/30">
                 <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100" />
-                <AvatarFallback className="bg-primary/10 text-primary">AD</AvatarFallback>
+                <AvatarFallback className="bg-primary/10 text-primary">
+                  {admin?.email.charAt(0).toUpperCase()}
+                </AvatarFallback>
               </Avatar>
               <div className="flex flex-col items-start">
-                <span className="text-sm font-medium text-foreground">Admin User</span>
-                <span className="text-xs text-muted-foreground">Super Admin</span>
+                <span className="text-sm font-medium text-foreground">{admin?.name || 'Admin User'}</span>
+                <span className="text-xs text-muted-foreground">{admin?.email || 'Super Admin'}</span>
               </div>
               <ChevronDown className="w-4 h-4 text-muted-foreground" />
             </Button>
@@ -98,7 +104,13 @@ export function Navbar({ title = 'Dashboard' }: NavbarProps) {
             <DropdownMenuItem className="cursor-pointer hover:bg-muted">Profile Settings</DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer hover:bg-muted">Change Password</DropdownMenuItem>
             <DropdownMenuSeparator className="bg-border" />
-            <DropdownMenuItem className="cursor-pointer text-destructive hover:bg-destructive/10 hover:text-destructive">
+            <DropdownMenuItem 
+              className="cursor-pointer text-destructive hover:bg-destructive/10 hover:text-destructive"
+              onClick={() => {
+                logout();
+                navigate('/login');
+              }}
+            >
               Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
