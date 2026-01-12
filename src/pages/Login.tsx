@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuthStore } from '@/store/useAuthStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -91,10 +91,18 @@ const Login = () => {
               />
             </div>
 
-            <div className="text-sm text-muted-foreground pt-2">
-              <p><strong>Demo Credentials:</strong></p>
-              <p>Email: admin@example.com</p>
-              <p>Password: admin123</p>
+            <div className="flex items-center justify-between text-sm">
+              <div className="text-sm text-muted-foreground">
+                <p><strong>Demo Credentials:</strong></p>
+                <p>Email: admin@example.com</p>
+                <p>Password: admin123</p>
+              </div>
+            </div>
+
+            <div className="text-right">
+              <Link to="/forgot-password" className="text-sm text-primary hover:underline">
+                Forgot password?
+              </Link>
             </div>
 
             <Button

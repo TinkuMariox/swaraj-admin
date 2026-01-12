@@ -10,23 +10,30 @@ import {
   Percent,
   BarChart3,
   Settings,
-  LogOut,
+  CreditCard,
+  HelpingHand,
+  HelpCircle,
   ChevronLeft,
   ChevronRight,
-  Gem,
+  Layers,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import logo from "../../assets/swarnazlogo.png"
 
 const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
   { icon: Package, label: 'Products', path: '/products' },
+  { icon: Layers, label: 'Categories', path: '/categories' },
   { icon: ShoppingCart, label: 'Orders', path: '/orders' },
   { icon: Users, label: 'Customers', path: '/customers' },
-  { icon: Image, label: 'Media', path: '/media' },
+  // { icon: Image, label: 'Media', path: '/media' },
   { icon: Percent, label: 'Discounts', path: '/discounts' },
   { icon: BarChart3, label: 'Analytics', path: '/analytics' },
+  { icon: CreditCard, label: 'Transactions', path: '/transactions' },
   { icon: Settings, label: 'Settings', path: '/settings' },
+  { icon: HelpingHand, label: 'Help & Support', path: '/help-support' },
+  { icon: HelpCircle, label: 'FAQs', path: '/faqs' },
 ];
 
 export function Sidebar() {
@@ -41,18 +48,25 @@ export function Sidebar() {
       )}
     >
       {/* Logo Section */}
-      <div className="flex items-center justify-between h-16 px-4 border-b border-sidebar-border">
-        <Link to="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg luxury-gradient flex items-center justify-center">
-            <Gem className="w-5 h-5 text-primary-foreground" />
+      <div className="flex items-center justify-between h-24 px-4 border-b border-sidebar-border bg-gradient-to-r from-sidebar/50 to-transparent">
+        <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity duration-200">
+          <div className="w-16 h-16 rounded-lg p-1 bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center shadow-lg">
+            <img 
+              src={logo}
+              alt="Swarnaaz Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
           {!sidebarCollapsed && (
-            <span className="font-display text-xl luxury-text-gradient">
-              Royal Jewels
-            </span>
+            <div className="flex flex-col">
+              <span className="font-display text-lg font-bold luxury-text-gradient">
+                SWARNAZ
+              </span>
+              <span className="text-xs text-muted-foreground">Jewellery Admin</span>
+            </div>
           )}
         </Link>
-        <Button
+        {/* <Button
           variant="ghost"
           size="icon"
           onClick={toggleSidebar}
@@ -63,7 +77,7 @@ export function Sidebar() {
           ) : (
             <ChevronLeft className="w-4 h-4" />
           )}
-        </Button>
+        </Button> */}
       </div>
 
       {/* Navigation */}
@@ -117,7 +131,7 @@ export function Sidebar() {
       </nav>
 
       {/* Logout Button */}
-      <div className="p-3 border-t border-sidebar-border">
+      {/* <div className="p-3 border-t border-sidebar-border">
         {sidebarCollapsed ? (
           <Tooltip>
             <TooltipTrigger asChild>
@@ -141,7 +155,7 @@ export function Sidebar() {
             <span className="font-medium text-sm">Logout</span>
           </Button>
         )}
-      </div>
+      </div> */}
     </aside>
   );
 }
